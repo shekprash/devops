@@ -1,6 +1,6 @@
 node {
     checkout scm
-    adapter_file=new File(currentBuild.rawBuild.parent.definition.scriptPath).getParent()+"/py-service.properties"
+    adapter_file=new File(currentBuild.rawBuild.parent.definition.scriptPath).getParent()+"/test.properties"
     adapter = readProperties file: adapter_file
     if(adapter.get('BUILD_TEMPLATE_GIT_URL')!=null && adapter.get('BUILD_TEMPLATE_GIT_URL')!=""){
         BUILD_TEMPLATE_GIT_BRANCH=adapter.get('BUILD_TEMPLATE_GIT_BRANCH')
@@ -12,7 +12,7 @@ node {
         utilsPath="utils/Py-Utils/"
     }
     jenkins = readProperties file: utilsPath+'jenkins.properties'
-    utils = load utilsPath+'PyBuildUtils.groovy'
+    utils = utils.groovy
     utils.setPropertyFile(adapter)
     //currentBuild.displayName = BUILD_NUMBER+":"+version+" "+TargetExchange
 }
